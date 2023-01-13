@@ -1,34 +1,31 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { ThemeConfig } from './core/theme';
-import { Layout } from './core/layouts';
-import Dashboard from './pages/Dashboard';
+import { Layout } from './layouts';
+import { ThemeConfig } from './theme';
 import { AppProvider } from './contexts/AppContext';
+import Main from './pages/Main';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      retry: false,
       staleTime: 5 * 60 * 1000,
+      retry: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
     },
   },
 });
 
-export function App() {
+export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppProvider>
         <ThemeConfig>
           <Layout>
-            <Dashboard />
+            <Main />
           </Layout>
         </ThemeConfig>
       </AppProvider>
-
-      {/* react query for develop */}
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
-}
+};

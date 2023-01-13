@@ -3,4 +3,5 @@
 
 export const environment = {
   production: false,
+  url: 'https://api.recruitment.4soft.tech',
 };

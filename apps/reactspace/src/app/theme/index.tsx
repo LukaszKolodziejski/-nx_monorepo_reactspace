@@ -1,16 +1,16 @@
 import { ReactNode } from 'react';
-import { CssBaseline } from '@mui/material';
 import {
   createTheme,
   ThemeProvider,
   StyledEngineProvider,
 } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 
 type ThemeConfigProps = {
   children: ReactNode;
 };
 
-export function ThemeConfig({ children }: ThemeConfigProps) {
+export const ThemeConfig = ({ children }: ThemeConfigProps) => {
   const theme = createTheme();
 
   return (
@@ -21,4 +21,4 @@ export function ThemeConfig({ children }: ThemeConfigProps) {
       </ThemeProvider>
     </StyledEngineProvider>
   );
-}
+};

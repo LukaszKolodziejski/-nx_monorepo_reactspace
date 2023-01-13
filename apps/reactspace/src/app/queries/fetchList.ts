@@ -1,7 +1,7 @@
-import { BASE_URL } from './constants';
+import { environment } from '../../environments/environment';
 
-export default async function fetchList() {
-  const response = await fetch(`${BASE_URL}/list`);
+export const fetchList = async () => {
+  const response = await fetch(`${environment.url}/list`);
 
   return response.json();
-}
+};

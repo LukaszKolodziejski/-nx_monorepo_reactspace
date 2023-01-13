@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import {
   Container,
-  Typography,
   Autocomplete,
   TextField,
   CircularProgress,
@@ -8,26 +8,20 @@ import {
   Grid,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
-import { AppCard, DetailsDialog } from '../core/components';
 
+import { Card, Details } from '../components';
 import { useAppContext } from '../hooks/useAppContext';
 
-export default function Dashboard() {
+const Main = () => {
   const classes = useStyles();
   const { data, isLoading } = useAppContext();
-
-  // @todo: Add proper type here
   const [observaleData, setObservableData] = useState([]) as any;
   const [selectedCard, setSelectedCard] = useState(null);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   const toggleDialog = (flag: boolean) => setOpenDetailsDialog(flag);
-
-  // @todo: Add proper type here
   const onChange = (newData: any) => {
     if (newData) {
-      // @todo: use lodash unique to get unique data
       setObservableData((prevData: any) => [...prevData, newData]);
     }
   };
@@ -35,34 +29,16 @@ export default function Dashboard() {
   if (!data && isLoading) return <CircularProgress />;
 
   return (
-    <Container className={classes.root} maxWidth="lg" component="main">
-      <Typography
-        component="h1"
-        variant="h2"
-        align="center"
-        color="text.primary"
-        gutterBottom
-      >
-        Dashboard Monitor
-      </Typography>
-      {/* <Typography variant="h5" align="center" color="text.secondary" component="p"> */}
-      <Typography
-        variant="h5"
-        align="center"
-        color="text.secondary"
-        component="p"
-      >
-        Select apps and keep eye on them!
-      </Typography>
+    <Container className={classes.root}>
       <Autocomplete
-        id="autocomplete-app"
-        onChange={(event: any, newApp: any) => onChange(newApp)}
+        id="autocomplete"
         options={data}
-        getOptionLabel={(option) => option.name}
-        sx={{ width: 300, marginTop: 2 }}
+        onChange={(_, newApp: any) => onChange(newApp)}
+        getOptionLabel={(option) => option.company}
+        sx={{ width: 200, marginTop: 2 }}
         renderOption={(props, option) => (
           <Box component="li" {...props} key={option.id}>
-            {option.name}
+            {option.company}
           </Box>
         )}
         renderInput={(params) => {
@@ -72,13 +48,12 @@ export default function Dashboard() {
       {observaleData && (
         <Grid
           className={classes.cardsWrapper}
+          spacing={3}
           container
-          spacing={5}
           alignItems="flex-start"
         >
-          {/* @todo: Add proper type */}
           {observaleData.map((card: any) => (
-            <AppCard
+            <Card
               key={card.id}
               {...card}
               onClick={() => {
@@ -90,24 +65,26 @@ export default function Dashboard() {
         </Grid>
       )}
       {selectedCard && (
-        <DetailsDialog
-          cardId={selectedCard}
+        <Details
           open={openDetailsDialog}
+          cardId={selectedCard}
           onClose={() => toggleDialog(false)}
         />
       )}
     </Container>
   );
-}
+};
+
+export default Main;
 
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
-    padding: 40,
+    flexDirection: 'column',
+    padding: 20,
   },
   cardsWrapper: {
-    padding: 30,
+    padding: 20,
   },
 }));

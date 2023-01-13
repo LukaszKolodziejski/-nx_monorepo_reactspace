@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Theme, Box } from '@mui/material';
+import { AppBar, Toolbar, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 export function Header() {
@@ -12,11 +12,15 @@ export function Header() {
       elevation={0}
     >
       <Toolbar className={classes.toolbar}>
-        <Box
-          component="img"
-          src="/assets/logo.jpg"
-          sx={{ width: 175, height: 40 }}
-        />
+        <Typography
+          component="h1"
+          variant="h1"
+          fontWeight="Bold"
+          fontSize={20}
+          color="text.primary"
+        >
+          Dashboard Monitor
+        </Typography>
       </Toolbar>
     </AppBar>
   );

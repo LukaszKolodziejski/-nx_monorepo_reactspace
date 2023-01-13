@@ -1,7 +1,7 @@
-import { BASE_URL } from './constants';
+import { environment } from '../../environments/environment';
 
-export default async function fetchDetails(id: number) {
-  const response = await fetch(`${BASE_URL}/details/${id}`);
+export const fetchDetails = async (id: number) => {
+  const response = await fetch(`${environment.url}/details/${id}`);
 
   return response.json();
-}
+};
